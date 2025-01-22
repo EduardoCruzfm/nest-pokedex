@@ -11,10 +11,18 @@ async function bootstrap() {
     new ValidationPipe({
       whitelist: true, //
       forbidNonWhitelisted: true,
+      transform: true,// transforma la informa la info q fluye x los dtos
+      transformOptions: { // mejora la validacion mas rapido ,pero usa mas memoria
+        enableImplicitConversion: true
+      }
       })
     );
   app.useGlobalFilters(new MongoExceptionFilter());
 
   await app.listen(process.env.PORT ?? 3000);
+  // const port = process.env.PORT || 3000;
+
+  // console.log(`Application is running on: http://localhost:${port}`);
+
 }
 bootstrap();
