@@ -41,3 +41,34 @@ http://localhost:3000/api/v2/seed
 ```
  npm i @nestjs/mongoose mongoose
 ```
+
+# Production Build 
+1. Crear el archivo ```.env.prod```
+2. Llenar las variables de entorno de prod.
+
+* En Railway, dentro del servicio del proyecto [Backend] (subido desde GitHub), crea una nueva variable de entorno con el nombre ```MONGODB```.
+
+* Asigna como valor la variable ```MONGO_URL```, que se encuentra en el servicio de MongoDB dentro de Railway.
+
+Railway automáticamente genera una copia del proyecto y reemplaza la variable de .env con la URL interna de MongoDB, permitiendo la conexión segura entre servicios.
+
+Ejemplo del formato esperado:
+```
+MONGODB = mongodb://mongo:YL*****IH@mongodb.railway.internal:27017
+```
+
+3. Crear la nueva imagen
+```
+docker-compose -f docker-compose.prod.yaml --env-file .env.prod up --build
+```
+
+# Levantar el contenedor en segundo plano  
+```
+docker-compose -f docker-compose.prod.yaml --env-file .env.prod up
+```
+
+# Nota
+Por defecto, docker-compose usa el archivo ```.env```, por lo que si tienen el archivo .env y lo configuran con sus variables de entorno de producción, bastaría con
+```
+docker-compose -f docker-compose.prod.yaml up --build
+```
